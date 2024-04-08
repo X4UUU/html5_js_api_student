@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>105-內容可編輯</title>
+    <style>
+        #info {
+            background-color: #00b7ff;
+            border:2px solid blue;
+            border-radius: 30px;
+            text-indent: 10px;
+            font-weight: bolder;
+        }
+
+        #info:focus {
+            background-color: #ffc44e;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="info" contenteditable="true" oninput="console.log(this.innerText);">
+        Hello
+    </div>
+    <script>
+        const str = localStorage.getItem("my-content");
+        if (str !== null) {
+            info.innerText = str;
+        }
+        const changeContent = (e) => {
+            console.log(e.target.innerText);
+            // 第一個參數為儲存的名稱，第二個為儲存的內容(只能為文字)
+            localStorage.setItem("my-content", e.target.innerText);
+        }
+    </script>
+</body>
+
+</html>
