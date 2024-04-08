@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas</title>
+    <style>
+        canvas {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myc" width="600" height="600"></canvas>
+    <script>
+        const myc = document.getElementById("myc");
+        const ctx = myc.getContext("2d");
+        // 橘線
+        ctx.beginPath();//重置path
+        ctx.arc(300, 300, 200, 0, 1.5 * Math.PI);
+        // ctx.moveTo(50, 50);
+        // ctx.lineTo(200, 300);
+        // ctx.lineTo(400, 5);
+        ctx.strokeStyle = "orange";//設定畫筆顏色
+        ctx.lineWidth = 20;//設定畫筆粗細
+        ctx.stroke();//在路徑上畫線
+
+        // 紅線
+        ctx.beginPath();//重置path
+        ctx.arc(300, 300, 120, 0, 1 * Math.PI, true);
+        ctx.strokeStyle = "red";//設定畫筆顏色
+        ctx.lineWidth = 20;//設定畫筆粗細
+        ctx.stroke();//在路徑上畫線
+
+    </script>
+</body>
+
+</html>
