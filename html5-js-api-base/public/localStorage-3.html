@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage</title>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>手機</td>
+                <td>生日</td>
+                <td>建立時間</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        const prefix = "form1;;";
+        let str = "";
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);//一個一個 key 抓出來
+            if (key.indexOf(prefix) === 0) {
+                //key 前面是 "form1;;"
+                const value = localStorage.getItem(key);
+                const t = +key.slice(prefix.length);// + 正號: 做字串轉數值
+                const obj = JSON.parse(value);
+                str += `<tr>
+                    <td>${obj.name}</td>
+                    <td>${obj.mobile}</td>
+                    <td>${obj.birthday}</td>
+                    <td>${dayjs(t).format("YYYY-MM-DD HH:mm:ss")}</td>
+                    </tr>`;
+            }
+        }
+        document.querySelector("tbody").innerHTML = str;
+    </script>
+</body>
+
+</html>
