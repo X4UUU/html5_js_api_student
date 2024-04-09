@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rect {
+            position: absolute;
+            width: 600px;
+            height: 400px;
+            background-color: #4476e4;
+            border: 1px solid gray;
+        }
+
+        .box {
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            background-color: #ee6f2f;
+            border: 1px solid black;
+        }
+
+        .box img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rect" onclick="fileFiled.click()"></div>
+    <script>
+        const r = document.querySelector(".rest");
+
+        r.addEventListener("dragenter", (e) => {
+            e.currentTarget.style.backgroundColor = "#FFAAAA";
+        });
+        r.addEventListener("dragleave", (e) => {
+            e.currentTarget.style.backgroundColor = "#a2eff6";
+        });
+        r.addEventListener("dragover", (e) => e.preventDefault());
+        r.addEventListener("drop", (e) => {
+            e.preventDefault();
+            e.currentTarget.style.backgroundColor = "#a2eff6";
+            // e.dataTransfer.files 拖拉進來的檔案 fileList
+            console.log(e.dataTransfer.files);
+            let str = "";
+            for (let file of e.dataTransfer.files) {
+                if (file.type.indexOf("image/") === 0) {
+                    const url = URL.createObjectURL(file);//同步的操作
+                    str += `<div class="box">
+                        <img src="${url}" alt=""/>
+                        </div>`
+                }
+
+            }
+            r.innerHTML = str;
+        });
+    </script>
+</body>
+
+</html>

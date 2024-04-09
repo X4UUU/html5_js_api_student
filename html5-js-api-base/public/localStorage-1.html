@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage</title>
+</head>
+
+<body>
+    <form name="form1" onsubmit="saveData(event)">
+        <input type="text" name="name" placeholder="姓名"><br />
+        <input type="text" name="mobile" placeholder="手機"><br />
+        <input type="date" name="birthday"><br />
+        <button>儲存</button>
+    </form>
+    <script>
+        const storageKey = "tmp-key";
+        const saveData = (e) => {
+            e.preventDefault();//表單沒有要送出
+            const obj = {
+                name: document.form1.name.value,
+                mobile: document.form1.mobile.value,
+                birthday: document.form1.birthday.value,
+            };
+            localStorage.setItem(storageKey, JSON.stringify(obj));
+        };
+    </script>
+</body>
+
+</html>

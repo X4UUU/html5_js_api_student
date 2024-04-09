@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rect {
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            width: 500px;
+            height: 500px;
+            background-color: #4476e4;
+            border: 1px solid gray;
+        }
+
+        .ball {
+            width: 60px;
+            min-width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            background-color: #ee6f2f;
+            border: 1px solid black;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rect">
+        <div class="ball" draggable="true">77</div>
+        <div class="ball" draggable="true" style="background-color: lightsalmon;">1</div>
+        <div class="ball" draggable="true" style="background-color: lightblue;">2</div>
+        <div class="ball" draggable="true" style="background-color: lightgreen;">3</div>
+    </div>
+    <script>
+        let myTarget = {
+            el: null, // element 是誰
+            x: 0,
+            y: 0,
+        };
+        const ball = document.querySelector(".ball");
+        const [r0, r] = document.querySelectorAll(".rect");
+
+        const mouseDown = (e) => {
+            myTarget = {
+                el: e.currentTarget,//滑鼠點到的位置
+                x: e.offsetX,// 滑鼠點到的相對位置
+                y: e.offsetY,
+            };
+            myTarget.el.removeEventListener("mousemove", mouseMove);
+        };
+        const mouseMove = (e) => {
+            if (myTarget.el) {
+                const { el, x, y } = myTarget;
+                myTarget.style.left = (e.pageX - myTarget.x) + "px";
+                myTarget.style.top = (e.pageY - myTarget.y) + "px";
+            }
+        };
+        const mouseUp = (e) => {
+            if (myTarget.el) {
+                myTarget.el.removeEventListener("mousemove", mouseMove);
+            }
+            myTarget.el = null;
+        };
+        ball.addEventListener("mouseDown", mouseDown);
+        window.addEventListener("mouseUp", mouseUp);
+
+    </script>
+</body>
+
+</html>

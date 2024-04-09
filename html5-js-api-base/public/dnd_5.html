@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .rect {
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            width: 200px;
+            height: 200px;
+            background-color: #a2eff6;
+            border: 1px solid gray;
+        }
+
+        .ball {
+            width: 60px;
+            min-width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            background-color: #ee6f2f;
+            border: 1px solid black;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rect">
+        <div class="ball" draggable="true">77</div>
+        <div class="ball" draggable="true" style="background-color: blue">88</div>
+        <div class="ball" draggable="true" style="background-color: red">99</div>
+    </div>
+    <div class="rect" style="left: 300px"></div>
+    <script>
+        let myTarget = null;
+        const balls = document.querySelectorAll(".ball");
+        const [r0, r] = document.querySelectorAll(".rect");
+
+        balls.forEach((b) => {
+            b.addEventListener("dragstart", (e) => {
+                myTarget = e.currentTarget;
+            });
+            b.addEventListener("dragend", (e) => {
+                myTarget = null;
+            });
+        });
+
+        r.addEventListener("dragenter", (e) => {
+            e.currentTarget.style.backgroundColor = "#FFAAAA";
+        });
+        r.addEventListener("dragleave", (e) => {
+            e.currentTarget.style.backgroundColor = "#a2eff6";
+        });
+        r.addEventListener("dragover", (e) => e.preventDefault());
+        r.addEventListener("drop", (e) => {
+            if (myTarget) {
+                const clone = myTarget.cloneNode(true);
+                clone.removeAttribute("draggable");
+                e.currentTarget.append(clone);
+            }
+            e.currentTarget.style.backgroundColor = "#a2eff6";
+        });
+    </script>
+</body>
+
+</html>
