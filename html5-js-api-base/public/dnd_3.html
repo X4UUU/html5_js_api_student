@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rect {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #a2eff6;
+            border: 1px solid gray;
+        }
+
+        .ball {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            background-color: #ee6f2f;
+            border: 1px solid black;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rect">
+        <div class="ball" id="b1" draggable="true">77</div>
+    </div>
+    <div class="rect" style="left: 300px"></div>
+    <script>
+        const b = document.querySelector(".ball");
+        const [rect1, rect2] = document.querySelectorAll(".rect");//取得的nodelist可以迭代
+        b.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text", e.currentTarget.id);
+        });
+        rect2.addEventListener("dragenter", (e) => {
+            e.currentTarget.style.backgroundColor = "#FFAAAA";
+        })
+        rect2.addEventListener("dragleave", (e) => {
+            e.currentTarget.style.backgroundColor = "#a2eff6";
+        })
+        rect2.addEventListener("dragover", (e) => e.preventDefault());
+        rect2.addEventListener("drop", (e) => {
+            const tid = e.dataTransfer.getData("text");
+            const t = document.getElementById(tid);
+            e.currentTarget.append(t);
+            e.currentTarget.style.backgroundColor = "#a2eff6";
+        })
+    </script>
+</body>
+
+</html>
