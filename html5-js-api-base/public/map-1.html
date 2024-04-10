@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>map & set</title>
+</head>
+
+<body>
+    <script>
+        const obj = {};
+        const p1 = { name: "apple" };
+        const p2 = { name: "book" };
+        obj[p1] = 123;
+        obj[p2] = 456;
+        console.log(obj[p1]);
+        // object 類型的物件, key 基本上是 "字串" (另外一個是 symbol 類型)
+
+        const map = new Map();//key 可以是參照類型
+        map.set(p1, 123);
+        map.set(p2, 456);//被後面相同 key 的覆蓋
+        map.set(p2, 789);
+        map.set({}, 'AAA');
+        map.set({}, 'BBB');
+        map.set(() => { }, "CCC");
+        console.log("size:", map.size);
+        console.log(map.get(p1));
+        console.log(map.get(p2));
+        console.log("-------------");
+
+        map.forEach((v, k) => {
+            console.log({ k, v });
+        })
+        console.log('-----------');
+        const mySet = new Set();
+        mySet.add(p1);
+        mySet.add(p2);
+        mySet.add(p2);
+        mySet.add({});
+        mySet.add({});
+        mySet.add(() => { });
+        console.log("mySet size:", mySet.size);
+        mySet.forEach((v, k) => {
+            console.log({ k, v });
+        })
+    </script>
+</body>
+
+</html>
