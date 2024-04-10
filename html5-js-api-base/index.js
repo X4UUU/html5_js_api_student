@@ -1,14 +1,15 @@
 import express from "express";
 import serveIndex from "serve-index";
+import "./routes/ws-echo.js";
 
 const web_port = 3031;
 const app = express();
 
 // routes setup
 // SSE測試伺服端，不要寫在serverIndex後面，會被蓋掉
-app.get("/try-sse",(req,res)=>{
+app.get("/try-sse", (req, res) => {
     let id = 30;
-    res.writeHead(200,{
+    res.writeHead(200, {
         "Content-Type": "text/event-stream; charset=utf-8",
         "Cache-Control": "no-cache",
         Connection: "keep-alive",
