@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>websocket建立</title>
+</head>
+
+<body>
+    <button onclick="doConnect()">連線</button>
+    <br>
+    <input type="text" id="myInput">
+    <button disabled id="sendBtn" onclick="socket.send(myInput.value)">送出</button>
+    <br>
+    <div id="info"></div>
+    <script>
+        let socket;
+        const myOpen = (e) => {
+            sendBtn.removeAttribute("disabled");
+        };
+        const myMessage = (e) => { 
+            info.innerHTML += `${e.data}<br>`;
+        };
+        const myClose = (e) => {
+            sendBtn.setAttribute("disabled", "true");
+        };
+        // 專題製作時應有的寫法
+        const doConnect = () => {
+            if (socket && socket.readyState === WebSocket.OPEN) return;
+            socket = new WebSocket(`ws://${location.hostname}:3081/abc/`);
+            socket.addEventListener("open",myOpen);
+            socket.addEventListener("message",myMessage);
+            socket.addEventListener("close",myClose);
+            
+        };
+
+    </script>
+</body>
+
+</html>
